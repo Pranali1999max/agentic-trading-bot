@@ -71,8 +71,8 @@ class DataIngestion:
     def store_in_vector_db(self, documents: List[Document]):
         try:
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,
-                chunk_overlap=200,
+                chunk_size=200,
+                chunk_overlap=0,
                 length_function=len
             )
             documents = text_splitter.split_documents(documents)
@@ -80,10 +80,18 @@ class DataIngestion:
             pinecone_client = Pinecone(api_key=self.pinecone_api_key)
             index_name = self.config["vector_db"]["index_name"]
 
+            # if index_name not in [i.name for i in pinecone_client.list_indexes()]:
+            #     pinecone_client.create_index(
+            #         name=index_name,
+            #         dimension=768,  # adjust if needed based on embedding model
+            #         metric="cosine",
+            #         spec=ServerlessSpec(cloud="aws", region="us-east-1"),
+            #     )
+
             if index_name not in [i.name for i in pinecone_client.list_indexes()]:
                 pinecone_client.create_index(
                     name=index_name,
-                    dimension=768,  # adjust if needed based on embedding model
+                    dimension=768,
                     metric="cosine",
                     spec=ServerlessSpec(cloud="aws", region="us-east-1"),
                 )

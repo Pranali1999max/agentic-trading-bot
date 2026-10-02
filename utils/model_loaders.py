@@ -5,6 +5,8 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
 from utils.config_loader import load_config
 from langchain_groq import ChatGroq
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 
 class ModelLoader:
     """
@@ -25,14 +27,27 @@ class ModelLoader:
         if missing_vars:
             raise EnvironmentError(f"Missing environment variables: {missing_vars}")
 
+    # def load_embeddings(self):
+    #     """
+    #     Load and return the embedding model.
+    #     """
+    #     print("Loading Embedding model")
+    #     model_name=self.config["embedding_model"]["model_name"]
+    #     return GoogleGenerativeAIEmbeddings(model=model_name)
+
     def load_embeddings(self):
         """
         Load and return the embedding model.
         """
         print("Loading Embedding model")
-        model_name=self.config["embedding_model"]["model_name"]
-        return GoogleGenerativeAIEmbeddings(model=model_name)
 
+        model_name = self.config["embedding_model"]["model_name"]
+
+        return GoogleGenerativeAIEmbeddings(
+            model=model_name,
+            output_dimensionality=768
+        )
+    
     def load_llm(self):
         """
         Load and return the LLM model.

@@ -34,7 +34,7 @@ tavilytool = TavilySearchResults(
     max_results=config["tools"]["tavily"]["max_results"],
     search_depth="advanced",
     include_answer=True,
-    include_raw_content=True,
+    include_raw_content=False,
     )
 
 financials_tool = PolygonFinancials(api_wrapper=api_wrapper)

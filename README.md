@@ -8,13 +8,13 @@ PINECONE_API_KEY
 ```
 
 after streamlit UI ..you will have to run this to create endpoint
-### for running the fastapi endpoint
+### for running the fastapi endpoint : this is on split terminal,run after below
 ```
-uvicorn main:app --host 0.0.0.0 --port 8006 --reload
+uvicorn main:app --host 0.0.0.0 --port 8010 --reload
 
 ```
 
-### for running the streamlit ui
+### for running the streamlit ui : run this on main terminal first
 ```
 streamlit run streamlit_ui.py
 
